@@ -20,16 +20,18 @@ namespace playlist_gen
         public static void Main()
         {
             var args = Environment.GetCommandLineArgs();
-            if (args.Length > 1 && Directory.Exists(args[0]))
+
+            if (args.Length > 2 && Directory.Exists(args[1]))
             {
-                var files = Directory.GetFiles(args[0], "*", new EnumerationOptions
+                var files = Directory.GetFiles(args[1], "*", new EnumerationOptions
                 {
                     RecurseSubdirectories = true,
                     IgnoreInaccessible = true
                 }).Where(f => IsMedia(f)).ToList();
-                if (files.Count>0){
-                    var playList=XSPF.Generate(files);
-                    XSPF.Save(args[1],playList);
+                if (files.Count > 0)
+                {
+                    var playList = XSPF.Generate(files);
+                    XSPF.Save(args[2], playList);
                 }
             }
             else
